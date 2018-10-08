@@ -1,7 +1,9 @@
 'use strict';
 
-function Character(canvas) {
-  var self = this;
+class Character {
+  constructor (canvas) {
+  
+  self = this;
 
   self.ctx = canvas.getContext('2d');
 
@@ -15,57 +17,56 @@ function Character(canvas) {
 
   self.img = document.createElement('img');
   self.img.src = "./images/my_totoro_vector_by_dead_on_demand-d7449mc.png";
-}
-
-Character.prototype.render = function () {
-  var self = this;
-  /*self.ctx.fillStyle = "black";
-  self.ctx.fillRect(self.x, self.y, self.height, self.width);*/
-  self.ctx.drawImage(self.img,self.x,self.y, self.width,self.height);
-}
-
-
-
-Character.prototype.update = function () {
-  var self = this;
-
-  self.y += (self.vel * self.acc + self.impulse);
-
-  if(self.y<150){
-    self.setImpulse(3);
-  }/* else if (self.y > 250){
-    self.setImpulse(0);
-    self.vel=0
-  }*/
-
-}
-
-Character.prototype.setImpulse = function (imp) {
-  var self = this;
-
-  self.impulse = imp;
-
-}
-
-
-Character.prototype.checkCollision = function (obstacle) {
-  var self = this;
   
-  var crashRight = self.x + self.width > obstacle.x;
-  var crashBottom = self.y + self.height > obstacle.y;
-  var crashTop = self.y < obstacle.y + obstacle.height;
-  var crashLeft = self.x < obstacle.x + obstacle.width;
-
-  if (crashRight && crashBottom && crashLeft & crashTop) {
-    return true;
-  }else {
-    return false;
   }
+  render() {
+    const self = this;
+    /*self.ctx.fillStyle = "black";
+    self.ctx.fillRect(self.x, self.y, self.height, self.width);*/
+    self.ctx.drawImage(self.img,self.x,self.y, self.width,self.height);
+  }
+
+  update() {
+    const self = this;
+  
+    self.y += (self.vel * self.acc + self.impulse);
+  
+    if(self.y<10){
+      self.setImpulse(3);
+    }/* else if (self.y > 250){
+      self.setImpulse(0);
+      self.vel=0
+    }*/
+  
+  }
+
+  setImpulse(imp) {
+    const self = this;
+  
+    self.impulse = imp;
+  
+  }
+
+  checkCollision(obstacle) {
+    let self = this;
+    
+    let crashRight = self.x + self.width > obstacle.x;
+    let crashBottom = self.y + self.height > obstacle.y;
+    let crashTop = self.y < obstacle.y + obstacle.height;
+    let crashLeft = self.x < obstacle.x + obstacle.width;
+  
+    if (crashRight && crashBottom && crashLeft & crashTop) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  checkYLimits (limits) {
+    var self = this;
+
+    self.y >270;
+  }
+ 
 }
-
-Character.prototype.checkYLimits = function (limits) {
-  var self = this;
-
-  self.y >270;
-}
-
+  
